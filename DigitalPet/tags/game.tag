@@ -1,66 +1,103 @@
 <game>
   <h1>Zootopia Pets</h1>
 
-	<img src="images/{ petsImg }.png" ref="pets" class="center">
-	<img src="assets/{ thingsImg }.png" ref="things" class="center">
+	<img src="images/{ petsImg }.png" class="center">
+	<img src="assets/{ foodImg }.png" class="center">
 
 	<div>
 	  <button onclick={ changePets }>Change Pets</button>
-	  <button onclick={ changeThings }>Change Things</button>
-	  <button onclick={ reset } show={ hearts <= 0 }>RESET</button>
+	  <button onclick={ changeFood }>Change Food</button>
+	  <button onclick={ reset } show={ "" }>RESET</button>
 	</div>
+
+
+	<card show={ matchPet() }></card>
 
 	<info-console logs={ userLogs }></info-console>
 
 	<script>
-		var tag = this;
+		let tag = this;
 
-		this.petsImg = "judy";
-		this.thingsImg = "butterfly";
+    this.cards = [
+		{
+		  pet: "Judy",
+		  food: "carrot"
+		},
+		{
+		  pet: "Nick",
+		  food: "meat"
+		},
+		{
+		  pet: "Flash",
+		  food: "leaf"
+		},
+		{
+			pet: "Bogo",
+		  food: "grass"
+	  }
+	];
+
+		this.petsImg = "Judy";
+		this.foodImg = "leaf";
 		this.userLogs = [];
+
 
 		reset(event) {
 			this.userLogs = [];
 		}
 
 		changePets() {
-			if (this.petsImg == "judy") {
-				this.petsImg = "nick";
-				this.addToLog('You change your pet to a fork.');
-			} else if(this.petsImg == "nick") {
-				this.petsImg = "flash";
+			if (this.petsImg == "Judy") {
+				this.petsImg = "Nick";
+				this.addToLog('You change your pet to a fox.');
+			} else if(this.petsImg == "Nick") {
+				this.petsImg = "Flash";
 				this.addToLog('You change your pet to a sloth.');
-			} else if(this.petsImg == "flash") {
-				this.petsImg = "bogo";
+			} else if(this.petsImg == "Flash") {
+				this.petsImg = "Bogo";
 				this.addToLog('You change your pet to an ox.');
-			} else if(this.petsImg == "bogo") {
-				this.petsImg = "judy";
+			} else if(this.petsImg == "Bogo") {
+				this.petsImg = "Judy";
 				this.addToLog('You change your pet to a bunny.');
 		  }
 		}
 
-		changeThings() {
-			if (this.thingsImg == "butterfly") {
-				this.thingsImg = "meat";
+		changeFood() {
+			if (this.foodImg == "leaf") {
+				this.foodImg = "meat";
 				this.addToLog('This is meat.');
-			} else if(this.thingsImg == "meat") {
-				this.thingsImg = "carrot";
+			} else if(this.foodImg == "meat") {
+				this.foodImg = "carrot";
 				this.addToLog('This is a carrot.');
-			} else if(this.thingsImg == "carrot") {
-				this.thingsImg = "grass";
+			} else if(this.foodImg == "carrot") {
+				this.foodImg = "grass";
 				this.addToLog('These are grasses.');
-			} else if(this.thingsImg == "grass") {
-				this.thingsImg = "butterfly";
-				this.addToLog('This is a butterfly.');
+			} else if(this.foodImg == "grass") {
+				this.foodImg = "leaf";
+				this.addToLog('This is leaf.');
 		  }
+		}
+
+		matchPet() {
+			if(this.petsImg == "Judy" && this.foodImg == "carrot") {
+
+				this.addToLog('Feed Judy with carrot.');
+				return true;
+			} else if(this.petsImg == "Nick" && this.foodImg == "meat") {
+				this.addToLog('Feed Nick with meat.');
+				return true;
+			} else if(this.petsImg == "Flash" && this.foodImg == "leaf") {
+				this.addToLog('Feed Flash with leaf.');
+				return true;
+			} else if(this.petsImg == "Bogo" && this.foodImg == "grass") {
+				this.addToLog('Feed Bogo with grass.');
+				return true;
+			}
 		}
 
 		addToLog(msg) {
 			this.userLogs.push(msg);
 		}
-
-
-		
 
 	</script>
 
@@ -83,11 +120,15 @@
 			font-size: 1.5em;
 			padding: 0.5em;
 			border-radius: 0.25em;
-			background-color: coral;
-			border: 1px solid navy;
+			background-color: rgb(82, 189, 255);
+			border: none;
 			cursor: pointer;
+      margin: 0 20px;
 		}
-		
-	
+    card {
+      margin: 20px auto;
+      width: 60%;
+    }
+
 	</style>
 </game>
